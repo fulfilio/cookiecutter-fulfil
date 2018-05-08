@@ -1,0 +1,58 @@
+{% raw %}
+{% macro render_field(field, label_visible=true) -%}
+     <div class="form-group {% if field.errors %}has-error{% endif %} {{ kwargs.pop('class_', '') }}">
+        {% if field.type not in ('HiddenField', 'BooleanField') and label_visible %}
+          {{ field.label(class_='control-label') }}
+        {% endif %}
+        {% if field.type == 'ChoiceField' %}
+          {{ field(class_='mdb-select', **kwargs) }}
+        {% else %}
+          {{ field(class_='form-control', **kwargs) }}
+        {% endif %}
+        {% if field.type == 'BooleanField' and label_visible %}
+          {{ field.label(class_='control-label') }}
+        {% endif %}
+        {% if field.description %}
+          <small class="text-muted">{{ field.description }}</small>
+        {% endif %}
+        {% if field.errors %}
+            {% for e in field.errors %}
+                <p class="help-block red-text">{{ e }}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
+{%- endmacro %}
+
+
+{% macro render_pagination(pagination) %}
+  <ul class="pagination pagination-circle pg-blue mb-0">
+    <!--First-->
+    <li class="page-item {{ 'disabled' if not pagination.has_prev }} clearfix d-none d-md-block"><a class="page-link" href="{{ url_for_other_page(1) }}">First</a></li>
+    <!--Arrow left-->
+    <li class="page-item {{ 'disabled' if not pagination.has_prev }}">
+      <a class="page-link" href="{{ url_for_other_page(pagination.prev_num) }}" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+        <span class="sr-only">Previous</span>
+      </a>
+    </li>
+    <!--Numbers-->
+    {% for pg in pagination.iter_pages() %}
+      {% if pg%}
+        <li class="page-item {{ 'active' if pagination.page == pg }}"><a class="page-link" href="{{ url_for_other_page(pg) }}">{{ pg }}</a></li>
+      {% else %}
+        <li>...</li>
+      {% endif %}
+    {% endfor %}
+
+    <!--Arrow right-->
+    <li class="page-item {{ 'disabled' if not pagination.has_next }}">
+      <a class="page-link" aria-label="Next" href="{{ url_for_other_page(pagination.next_num) }}">
+        <span aria-hidden="true">&raquo;</span>
+        <span class="sr-only">Next</span>
+      </a>
+    </li>
+    <!--First-->
+    <li class="page-item clearfix d-none d-md-block {{ 'disabled' if not pagination.has_next }}"><a class="page-link" href="{{ url_for_other_page(pagination.pages) }}">Last</a></li>
+  </ul>
+{% endmacro %}
+{% endraw %}

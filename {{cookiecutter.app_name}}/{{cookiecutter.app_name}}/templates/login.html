@@ -1,0 +1,32 @@
+{% raw %}
+{% extends 'layout.html' %}
+{% from 'utils.html' import render_field %}
+
+{% block content %}
+<div class="d-flex justify-content-center section">
+  <div class="col-sm-6 col-md-4">
+
+    <div class="card">
+        <!--Card image-->
+        <!--/.Card image-->
+        <!--Card content-->
+        <div class="card-body">
+            <!--Title-->
+            <h4 class="card-title text-center">Login</h4>
+            <!--Text-->
+            <form method="POST" enctype="multipart/form-data" class="section">
+              <div class="form-group">
+                <label for="organization" class="control-label">
+                  Organization
+                </label>
+                <input type="text" id="organization" name="organization" placeholder="<organization>.fulfil.io" />
+              </div>
+              <input type="submit" value="Go" class="btn btn-primary">
+            </form>
+        </div>
+        <!--/.Card content-->
+    </div>
+  </div>
+</div>
+{% endblock content %}
+{% endraw %}

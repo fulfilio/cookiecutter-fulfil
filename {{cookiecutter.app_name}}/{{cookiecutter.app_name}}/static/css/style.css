@@ -1,0 +1,170 @@
+body {
+  cursor: default;
+}
+.logo {
+    height: 37px;
+    margin-bottom: 5px;
+}
+.navbar {
+    background-color: #fff;
+}
+.navbar-toggleable-md .navbar-nav .nav-link {
+  color: #000000;
+}
+.nav-item.dropdown {
+    min-width: 5.5rem;
+}
+.navbar-brand {
+    margin: auto;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    /*border-right: 1px solid #979797;*/
+    color: #313131;
+    font-size: 1.1rem;
+    font-family: 'Montserrat', helvetica;
+    text-color: #636c72;
+}
+.section {
+    padding-top: 25px;
+}
+body {
+    font-family: 'Questrial', sans-serif;
+    color: #313131;
+    background-color: #f8f8f8;
+}
+@media print {
+    a[href]:after {
+      content: none !important;
+    }
+}
+label {
+    margin-bottom: 0rem !important;
+}
+table th {
+    /* Questrial is lighter font and bold starts after 600 */
+    font-weight: 600;
+}
+.btn-floating,.btn-floating i {
+    display: inline-block;
+    line-height: 37px;
+    color: #fff
+}
+
+.btn-floating {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    width: 37px;
+    height: 37px;
+    padding: 0;
+    background-color: #a6c;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border-radius: 50%;
+    transition: .3s;
+    margin: 10px
+}
+
+.btn-flat,.btn-flat:focus {
+    background-color: transparent
+}
+
+.btn-floating i {
+    width: inherit;
+    text-align: center;
+    font-size: 1.6rem
+}
+
+.inherit-text-color {
+  color: inherit;
+}
+
+
+/* Pagination */
+.page-item {
+    text-transform: uppercase;
+    font-size: 0.7rem;
+}
+.page-item .page-link {
+    color: #818181;
+}
+.page-item.active .page-link {
+    background-color: #bbb;
+    border-color: #0275d8;
+}
+
+.display-inline {
+    display: inline;
+}
+
+.label-left-15 {
+    left: 15px !important;
+}
+
+.select-margin-top-6 {
+    margin-top: 6px;
+}
+
+.form-margin-top-15 {
+    margin-top: 15px;
+}
+.dont-allow {
+    cursor: not-allowed;
+}
+.form-control {
+    margin-bottom: 0rem;
+}
+
+.channel-icon-s {
+  width: 1rem;
+}
+.channel-icon-m {
+  width: 2.5rem;
+}
+
+.no-margin-padding {
+  padding: 0px;
+  margin: 0px;
+}
+
+.btn-dropdown {
+  border: 0px;
+  padding: 0px;
+  margin: 0px;
+  color: black !important;
+}
+
+/* Dashboard */
+.min-chart {
+  margin: 10px 0;
+}
+
+/* Status Tree view style */
+.status-dot {
+  font-size: 10px;
+}
+.status-dot.green-text {
+  text-shadow: 0 0 5px #4CAF50;
+}
+.status-dot.amber-text {
+  text-shadow: 0 0 5px #ffc107;
+}
+.listing-error {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.order-export-error {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.action-btn {
+  padding: 0px 3px 0px 3px;
+  margin: 0px;
+}
+.btn-float {
+    float: right;
+}

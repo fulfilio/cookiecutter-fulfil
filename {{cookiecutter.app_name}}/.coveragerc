@@ -1,0 +1,5 @@
+[run]
+source = {{cookiecutter.app_name}}
+
+[report]
+omit = */tests/*, */setup.py, migrations/*
