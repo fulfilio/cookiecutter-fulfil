@@ -11,6 +11,6 @@ Use it now
 ::
 
     $ pip install cookiecutter
-    $ cookiecutter https://github.com/fulfilio/cookiecutter-fulfil.git
+    $ cookiecutter git@github.com:fulfilio/cookiecutter-fulfil.git
 
 You will be asked about your basic info (name, project name, app name, etc.). This info will be used in your new project.
