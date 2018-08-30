@@ -1,8 +1,12 @@
 {
-	"full_name": "Steven Loria",
-	"email": "sloria1@gmail.com",
-	"github_username": "sloria",
-	"project_name": "My Flask App",
-	"app_name": "myflaskapp",
-	"project_short_description": "A flasky app."
+	"full_name": "Your Full Name",
+	"email": "you@fulfil.io",
+	"github_username": "fulfilio",
+	"project_name": "My Fulfil App",
+	"app_name": "fulfil_app",
+	"project_short_description": "A short description about app",
+  "fulfil_app_id": "APP ID from auth.fulfil.io",
+  "fulfil_app_secret": "APP Secret from auth.fulfil.io",
+  "secret_key": "A random secret key",
+  "encryption_key": "A random encryption key"
 }

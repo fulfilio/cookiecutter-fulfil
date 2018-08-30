@@ -16,11 +16,13 @@
 
 ## Quickstart
 
-First, set your app's secret key as an environment variable. For example,
-add the following to ``.bashrc`` or ``.bash_profile``.
+First, set your app's secret key as environment variables for the app.
+You can add the following to ``.bashrc`` or ``.bash_profile``.
 
 ```sh
-    export {{ cookiecutter.app_name|upper }}_SECRET='something-really-secret'
+    export FLASK_APP=autoapp.py
+    export {{ cookiecutter.app_name|upper }}_SECRET_KEY='something-really-secret'
+    export ENCR_KEY=An encryption key for encrypted fields
     export FULFIL_APP_ID=app-id
     export FULFIL_APP_SECRET=api-secret
 ```

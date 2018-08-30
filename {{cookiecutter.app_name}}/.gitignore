@@ -1,2 +1,3 @@
 migrations/versions/*
 !migrations/versions/.gitkeep
+env.sh
