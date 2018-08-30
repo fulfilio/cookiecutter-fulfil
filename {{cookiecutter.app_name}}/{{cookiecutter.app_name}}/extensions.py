@@ -82,7 +82,7 @@ def get_fulfil():
                 session_data['oauth_token']['access_token']
             )
         )
-    except ClientError, e:
+    except ClientError as e:
         if e.code == 401:
             # unauthorized
             # TODO: Use refresh token if possible
