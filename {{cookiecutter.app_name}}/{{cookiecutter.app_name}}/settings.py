@@ -10,11 +10,11 @@ class Config(object):
 
     if not get_debug_flag():
         # Assert env for prod
-        for key in ('ENCR_KEY', 'SECRET', 'DATABASE_URI', 'CELERY_BROKER_URL'):
+        for key in ('ENCR_KEY', '{{ cookiecutter.app_name|upper }}_SECRET', 'DATABASE_URI', 'CELERY_BROKER_URL'):
             assert key in os.environ, \
                 ('Environment variable "%s" is missing' % key)
 
-    SECRET_KEY = os.environ.get('SECRET', 'secret-key')
+    SECRET_KEY = os.environ['{{ cookiecutter.app_name|upper }}_SECRET']
     ENCR_KEY = os.environ.get('ENCR_KEY', 'encr-key')
 
     DEBUG_TB_INTERCEPT_REDIRECTS = False
