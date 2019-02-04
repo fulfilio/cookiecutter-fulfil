@@ -9,51 +9,48 @@
 ## Table of content
 
 - [Quickstart](#quickstart)
-- [Shell](#shell)
-- [Running Tests](#running-tests)
+- [Environment Variables](#environment_variables)
 - [Migrations](#migrations)
-- [Documentation](#documentation)
+- [Shell](#shell)
 
 ## Quickstart
-
-First, set your app's secret key as environment variables for the app.
-You can add the following to ``.bashrc`` or ``.bash_profile``.
-
-```sh
-    export FLASK_APP=autoapp.py
-    export {{ cookiecutter.app_name|upper }}_SECRET_KEY='something-really-secret'
-    export ENCR_KEY=An encryption key for encrypted fields
-    export FULFIL_APP_ID=app-id
-    export FULFIL_APP_SECRET=api-secret
-```
 
 Run the following commands to bootstrap your environment:
 
 ```sh
-    git clone https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.app_name }}
+    git clone <app-url>
     cd {{ cookiecutter.app_name }}
     pip install -r requirements.txt
 ```
 
-You will see a pretty welcome screen.
+## Environment Variables:
 
-In general, before running shell commands, set the ``FLASK_APP`` and
-``FLASK_DEBUG`` environment variables:
+  **Note**: Read the environment variables before setting them up. Some of them will require your inputs
+
+  ```bash
+  export FLASK_APP=/path/to/manage.py
+  export FULFIL_APP_ID=<The API Client ID from the App which you created in the first step>
+  export FULFIL_APP_SECRET=<The API Client Secret from the App which you created in the first step>
+  export REDIS_URL=redis://localhost:6379/0
+  export AMQP_URL=
+  export ENV=dev
+  export OAUTHLIB_INSECURE_TRANSPORT=1
+  export DATABASE_URI=postgresql://<your-user-name>@localhost/bifrost
+  export {{ cookiecutter.app_name|upper }}_SECRET_KEY='something-really-secret'
+  export ENCR_KEY=An encryption key for encrypted fields
+  ```
+
+## Migrations
+
+Whenever a database migration needs to be made. Run the following commands:
 
 ```sh
-    export FLASK_APP=/path/to/autoapp.py
-    export FLASK_DEBUG=1
+    make migrate
 ```
-
 Once you have installed your DBMS, run the following to create your app's
 database tables and perform the initial migration:
 
-```sh
-    flask db init
-    flask db migrate
-    flask db upgrade
-    flask run
-```
+  - If you are using Mac, please install GNU-SED to make the above command successful. RUN `brew install gnu-sed --with-default-names` to install.
 
 ## Shell
 
@@ -65,30 +62,3 @@ To open the interactive shell, run:
 ```
 
 By default, you will have access to the flask ``app``.
-
-
-## Running Tests
-
-To run all tests, run:
-```sh
-    flask test
-```
-
-
-## Migrations
-
-Whenever a database migration needs to be made. Run the following commands:
-
-```sh
-    flask db migrate
-```
-
-This will generate a new migration script. Then run:
-
-```sh
-    flask db upgrade
-```
-
-To apply the migration.
-
-For a full migration command reference, run ``flask db --help``.

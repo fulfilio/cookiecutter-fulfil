@@ -8,5 +8,6 @@
   "fulfil_app_id": "APP ID from auth.fulfil.io",
   "fulfil_app_secret": "APP Secret from auth.fulfil.io",
   "secret_key": "A random secret key",
-  "encryption_key": "A random encryption key"
+  "encryption_key": "A random encryption key",
+  "use_heroku": ["no", "yes"]
 }

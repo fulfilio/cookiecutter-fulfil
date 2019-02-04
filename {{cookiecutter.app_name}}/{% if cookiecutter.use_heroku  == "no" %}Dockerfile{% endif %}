@@ -1,4 +1,4 @@
-FROM python:2.7
+FROM python:3.6
 
 # copy the rest of the app
 COPY . /app
@@ -6,4 +6,4 @@ COPY . /app
 # Workdir
 WORKDIR /app
 RUN pip install -r requirements.txt
-CMD "gunicorn autoapp:app"
+CMD "gunicorn manage:app"

@@ -4,7 +4,6 @@ import os
 import flask
 from flask_babel import Babel
 from flask_debugtoolbar import DebugToolbarExtension
-from celery import Celery
 from flask_redis import FlaskRedis
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -18,46 +17,10 @@ Session.setup(
     os.environ['FULFIL_APP_ID'], os.environ['FULFIL_APP_SECRET']
 )
 
-try:
-    from raven import Client as SentryClient
-    from raven.contrib.celery import register_signal
-except ImportError:
-    pass
-else:
-    if os.environ.get('SENTRY_DSN'):
-        sentry_client = SentryClient(os.environ.get('SENTRY_DSN'))
-        register_signal(sentry_client)
-
-
-celery = Celery('{{cookiecutter.app_name}}')
 redis_store = FlaskRedis()
 babel = Babel()
 toolbar = DebugToolbarExtension()
 sentry = Sentry()
-
-
-def make_celery(app):
-    celery.conf.update(app.config)
-    TaskBase = celery.Task
-
-    class ContextTask(TaskBase):
-        abstract = True
-
-        def __call__(self, *args, **kwargs):
-            with app.app_context():
-                if '_subdomain' in kwargs:
-                    flask.g._fulfil = Client(
-                        kwargs['_subdomain'],
-                        auth=BearerAuth(
-                            kwargs['_access_token']
-                        )
-
-                    )
-                return TaskBase.__call__(self, *args, **kwargs)
-
-    celery.Task = ContextTask
-    return celery
-
 
 # Database
 db = SQLAlchemy()
@@ -65,12 +28,6 @@ migrate = Migrate()
 
 
 def get_fulfil():
-    # Check if set on global. This happens from
-    # celery tasks
-    fulfil = getattr(flask.g, '_fulfil', None)
-    if fulfil is not None:
-        return fulfil
-
     if 'fulfil' not in flask.session:
         return
 

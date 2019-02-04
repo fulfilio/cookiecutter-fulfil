@@ -9,11 +9,13 @@ from ..database import Column, Model, db, SurrogatePK
 from ..extensions import encr_key, redis_store
 
 
-class Organization(SurrogatePK, Model):
-    __tablename__ = 'organization'
+class Merchant(SurrogatePK, Model):
+    __tablename__ = 'merchant'
 
     name = Column(db.String(80), nullable=False)
+    company_fid = Column(db.Integer, nullable=False)
     subdomain = Column(db.String(80), nullable=False, unique=True)
+    timezone = Column(db.String(80), nullable=False, unique=True)
     token = Column(EncryptedType(db.String, encr_key), nullable=False)
 
     @cached_property
@@ -21,8 +23,10 @@ class Organization(SurrogatePK, Model):
         key = 'fulfil:user:%s:context' % self.token
         context = redis_store.get(key)
         if context:
-            client = Client(self.subdomain, auth=BearerAuth(self.token),
-                            context=json.loads(context))
+            client = Client(
+                self.subdomain, auth=BearerAuth(self.token),
+                context=json.loads(context)
+            )
         else:
             client = Client(self.subdomain, auth=BearerAuth(self.token))
             redis_store.set(key, json.dumps(client.context), 300)  # TTL 5min
@@ -30,27 +34,27 @@ class Organization(SurrogatePK, Model):
 
     @classmethod
     def get_by_subdomain(cls, name):
-        """Find qrganization by subdomain
+        """Find merchant by subdomain
         """
         return cls.query.filter_by(subdomain=name).first()
 
     @classmethod
     def get_or_404(cls, subdomain):
-        organization = cls.get_by_subdomain(subdomain)
-        if not organization:
+        merchant = cls.get_by_subdomain(subdomain)
+        if not merchant:
             abort(404)
-        return organization
+        return merchant
 
     @classmethod
     def create_or_update(cls, subdomain, token, name):
-        organization = cls.get_by_subdomain(subdomain)
-        if not organization:
-            organization = cls()
-        organization.name = name
-        organization.subdomain = subdomain
-        organization.token = token
-        organization.save()
-        return organization
+        merchant = cls.get_by_subdomain(subdomain)
+        if not merchant:
+            merchant = cls()
+        merchant.name = name
+        merchant.subdomain = subdomain
+        merchant.token = token
+        merchant.save()
+        return merchant
 
 
 class User:
@@ -69,5 +73,5 @@ class User:
         return self.id
 
     @cached_property
-    def organization(self):
-        return Organization.get_by_subdomain(self.subdomain)
+    def merchant(self):
+        return Merchant.get_by_subdomain(self.subdomain)
