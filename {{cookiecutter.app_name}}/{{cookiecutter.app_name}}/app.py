@@ -5,10 +5,16 @@ from werkzeug.contrib.fixers import ProxyFix
 
 from .extensions import (
     babel, toolbar, sentry, oauth_user, db, migrate, redis_store,
+{% if cookiecutter.use_async_task == "yes" %}    setup_dramatiq{% endif %}
 )
 from .globals import register_globals
 from .settings import Config
 
+{% if cookiecutter.use_async_task == "yes" %}
+setup_dramatiq()
+# Jobs are added here as dramatiq requires broker initialization
+from {{cookiecutter.app_name}}.jobs import * # noqa
+{% endif %}
 
 def create_app(config=Config):
     app = Flask(__name__)

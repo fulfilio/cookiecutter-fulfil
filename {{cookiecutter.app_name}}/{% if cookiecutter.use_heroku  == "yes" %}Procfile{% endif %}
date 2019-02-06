@@ -1,2 +1,5 @@
 release: make migrate
 web: gunicorn -b :$PORT manage:app
+{% if cookiecutter.use_async_task == "yes" %}
+worker: dramatiq worker
+{% endif %}

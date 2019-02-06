@@ -1,0 +1,7 @@
+import dramatiq
+
+
+@dramatiq.actor
+def dummy_task():
+    print("Hello World from task")
+    return "OK"
