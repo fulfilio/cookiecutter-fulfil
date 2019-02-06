@@ -5,7 +5,6 @@ from werkzeug.contrib.fixers import ProxyFix
 
 from .extensions import (
     babel, toolbar, sentry, oauth_user, db, migrate, redis_store,
-    make_celery
 )
 from .globals import register_globals
 from .settings import Config
@@ -21,7 +20,6 @@ def create_app(config=Config):
     # register extensions
     db.init_app(app)
     migrate.init_app(app, db)
-    make_celery(app)
     babel.init_app(app)
     toolbar.init_app(app)
     sentry.init_app(app)
@@ -51,12 +49,12 @@ def register_context_processors(app):
 def register_cmd(app):
     from {{cookiecutter.app_name}} import commands
 
-    app.cli.add_command(commands.celery_cli)
+    app.cli.add_command(commands.maint_cli)
 
 
 def register_shell_context_processor(app):
-    from {{cookiecutter.app_name}}.user.models import Organization
+    from {{cookiecutter.app_name}}.user.models import Merchant
 
     app.shell_context_processor(lambda: {
-        'Organization': Organization,
+        'Merchant': Merchant,
     })

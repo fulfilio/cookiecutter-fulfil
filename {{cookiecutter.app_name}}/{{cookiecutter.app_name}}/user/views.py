@@ -2,7 +2,7 @@ from oauthlib.oauth2 import InvalidGrantError
 from flask import Blueprint, request, redirect, render_template, session, \
     abort, url_for, current_app
 
-from .models import Organization
+from .models import Merchant
 from ..utils import login_required, decode_jwt, get_oauth_session
 from ..extensions import fulfil
 
@@ -18,12 +18,16 @@ def home():
 @blueprint.route('/login', methods=['GET', 'POST'])
 def login():
     subdomain = None
-    if request.method == 'POST' and request.form.get('organization'):
-        subdomain = request.form.get('organization')
+    if request.method == 'POST' and request.form.get('merchant'):
+        subdomain = request.form.get('merchant')
     else:
         subdomain = request.args.get('subdomain')
 
     if subdomain:
+        access_type = 'user_access'
+        if not Merchant.get_by_subdomain(subdomain):
+            access_type = 'offline_access'
+
         session['subdomain'] = subdomain
         oauth_session = get_oauth_session()
         authorization_url, state = oauth_session.create_authorization_url(
@@ -32,7 +36,8 @@ def login():
                 next=request.args.get('next'),
                 _external=True
             ),
-            scope=current_app.config['FULFIL_PERMISSIONS']
+            scope=current_app.config['FULFIL_PERMISSIONS'],
+            access_type=access_type
         )
         session['oauth_state'] = state
         return redirect(authorization_url)
@@ -57,18 +62,27 @@ def authorized():
         return redirect(url_for('user.home'))
     if not token:
         abort(400)
-
     if token.get('offline_access_token'):
-        Organization.create_or_update(
+        merchant = Merchant.create_or_update(
             session['subdomain'],
             token['offline_access_token'],
             payload['organization_id'],
         )
+
     session['fulfil'] = {
         'user': token['associated_user'],
         'oauth_token': token,
         'subdomain': session['subdomain']
     }
+
+    if token.get('offline_access_token'):
+        company_id = fulfil.context['company']
+        Company = fulfil.model('company.company')
+        current_company, = Company.read([company_id], ['timezone'])
+
+        merchant.company_fid = company_id
+        merchant.timezone = current_company['timezone']
+        merchant.save()
 
     Access = fulfil.model('ir.model.access')
     models = set()

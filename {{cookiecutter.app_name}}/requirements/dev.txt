@@ -1,0 +1,5 @@
+# Install packages from prod.txt
+-r prod.txt
+
+gitlint
+flake8

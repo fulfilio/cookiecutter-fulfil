@@ -1,4 +1,4 @@
-export FLASK_APP=autoapp.py
+export FLASK_APP=manage.py
 export FULFIL_APP_ID={{ cookiecutter.fulfil_app_id }}
 export FULFIL_APP_SECRET={{ cookiecutter.fulfil_app_secret }}
 export {{ cookiecutter.app_name|upper }}_SECRET_KEY={{ cookiecutter.secret_key }}

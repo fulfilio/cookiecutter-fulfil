@@ -1,18 +1,13 @@
 import click
 from flask.cli import AppGroup
 
-from celery.bin import worker as celery_worker
+maint_cli = AppGroup('maint')
 
 
-celery_cli = AppGroup('celery')
+@maint_cli.command('clear_migration_history')
+def clear_migration_history():
+    """Clear migration history"""
+    from {{cookiecutter.app_name}}.extensions import db
 
-
-@celery_cli.command(with_appcontext=False)
-@click.option('--concurrency', default=None, help='Concurrency', type=click.INT)
-@click.option('--loglevel', default=None, help='loglevel')
-def worker(concurrency=None, loglevel='INFO'):
-    """Run celery worker."""
-    from {{cookiecutter.app_name}}.extensions import celery
-    celery_worker.worker(app=celery).run(
-        loglevel=loglevel, concurrency=concurrency
-    )
+    db.engine.execute("drop table if exists alembic_version;")
+    print("Dropped alembic_version table")

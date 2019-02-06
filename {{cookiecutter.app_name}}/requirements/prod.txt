@@ -1,0 +1,24 @@
+flask
+fulfil-client>=0.7.8
+flask-babel
+Flask-WTF
+Flask-SSLify
+Flask-Login
+flask-debugtoolbar
+gunicorn
+gevent
+raven[flask]
+flask-shell-ipython
+
+# Database
+six
+Flask-SQLAlchemy
+psycopg2
+Flask-Migrate
+sqlalchemy-utils
+
+# Caching
+flask-redis
+
+# Encrypted field
+cryptography
