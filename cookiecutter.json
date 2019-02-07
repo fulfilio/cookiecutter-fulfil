@@ -9,5 +9,6 @@
   "fulfil_app_secret": "APP Secret from auth.fulfil.io",
   "secret_key": "A random secret key",
   "encryption_key": "A random encryption key",
-  "use_heroku": ["no", "yes"]
+  "use_heroku": ["no", "yes"],
+  "use_async_task": ["no", "yes"]
 }

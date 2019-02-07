@@ -11,6 +11,11 @@ from fulfil_client.oauth import Session
 from fulfil_client import Client, BearerAuth, ClientError
 from werkzeug.local import LocalProxy
 from raven.contrib.flask import Sentry
+{% if cookiecutter.use_async_task == "yes" %}
+import dramatiq
+from dramatiq.brokers.rabbitmq import URLRabbitmqBroker
+from dramatiq.brokers.redis import RedisBroker
+{% endif %}
 
 # Setup fulfil session
 Session.setup(
@@ -72,3 +77,12 @@ def encr_key():
     """Returns encription key from app config
     """
     return flask.current_app.config['ENCR_KEY']
+{% if cookiecutter.use_async_task == "yes" %}
+
+def setup_dramatiq():
+    if os.environ.get('AMQP_URL'):
+        broker = URLRabbitmqBroker(os.environ['AMQP_URL'])
+    else:
+        broker = RedisBroker(url=os.environ['REDIS_URL'])
+    dramatiq.set_broker(broker)
+{% endif %}

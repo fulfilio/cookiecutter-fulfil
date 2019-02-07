@@ -22,3 +22,7 @@ flask-redis
 
 # Encrypted field
 cryptography
+{% if cookiecutter.use_async_task == "yes" %}
+# Async
+dramatiq[redis, rabbitmq]
+{% endif %}
