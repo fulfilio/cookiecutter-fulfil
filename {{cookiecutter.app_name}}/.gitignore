@@ -1,3 +1,4 @@
 migrations/versions/*
 !migrations/versions/.gitkeep
 env.sh
+{% if cookiecutter.use_react == "yes" %}node_modules/{% endif %}

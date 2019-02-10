@@ -75,3 +75,12 @@ class User:
     @cached_property
     def merchant(self):
         return Merchant.get_by_subdomain(self.subdomain)
+
+    @cached_property
+    def serialize(self):
+        return {
+            'name': self.name,
+            'email': self.email,
+            'id': self.id,
+            'subdomain': self.subdomain
+        }

@@ -1,0 +1,36 @@
+{
+  "name": "{{cookiecutter.app_name}}",
+  "version": "1.0.0",
+  "description": "{{cookiecutter.project_short_description}}",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack --progress --watch --mode=development",
+    "build": "webpack --progress --mode=production"
+  },
+  "author": "{{cookiecutter.email}}",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "*",
+    "babel-preset-react": "*",
+    "babel-preset-es2015": "*",
+    "css-loader": "*",
+    "file-loader": "*",
+    "html-webpack-plugin": "*",
+    "style-loader": "*",
+    "url-loader": "*",
+    "webpack": "4.29.3",
+    "webpack-cli": "*",
+    "clean-webpack-plugin": "*"
+  },
+  "dependencies": {
+    "@material-ui/core": "*",
+    "@shopify/polaris": "3.5.0",
+    "axios": "*",
+    "octantis": "github:fulfilio/octantis#master",
+    "react": "*",
+    "react-dom": "*",
+    "react-router-dom": "*"
+  }
+}

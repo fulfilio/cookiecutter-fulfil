@@ -56,7 +56,7 @@ fulfil = LocalProxy(get_fulfil)
 
 
 def get_oauth_user():
-    from user.models import User
+    from {{cookiecutter.app_name}}.user.models import User
 
     if 'fulfil' not in flask.session:
         return User()
