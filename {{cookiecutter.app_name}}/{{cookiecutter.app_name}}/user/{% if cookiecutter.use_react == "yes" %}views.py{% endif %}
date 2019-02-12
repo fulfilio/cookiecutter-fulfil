@@ -1,10 +1,10 @@
 from oauthlib.oauth2 import InvalidGrantError
 from flask import Blueprint, request, redirect, render_template, session, \
-    abort, url_for, current_app
+    abort, url_for, current_app, send_from_directory, jsonify
 
 from .models import Merchant
 from ..utils import login_required, decode_jwt, get_oauth_session
-from ..extensions import fulfil
+from ..extensions import fulfil, oauth_user
 
 blueprint = Blueprint('user', __name__)
 
@@ -12,14 +12,20 @@ blueprint = Blueprint('user', __name__)
 @blueprint.route('/')
 @login_required
 def home():
-    return render_template("home.html")
+    return send_from_directory("static", "react/dist/index.html")
 
 
-@blueprint.route('/login', methods=['GET', 'POST'])
+@blueprint.route('/user')
+@login_required
+def user_details():
+    return jsonify(**oauth_user.serialize)
+
+
+@blueprint.route('/login')
 def login():
     subdomain = None
-    if request.method == 'POST' and request.form.get('merchant'):
-        subdomain = request.form.get('merchant')
+    if request.args.get('merchant'):
+        subdomain = request.args.get('merchant')
     else:
         subdomain = request.args.get('subdomain')
 

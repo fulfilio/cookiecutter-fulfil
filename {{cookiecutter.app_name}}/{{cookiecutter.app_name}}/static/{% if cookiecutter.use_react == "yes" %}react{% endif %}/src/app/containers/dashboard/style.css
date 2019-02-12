@@ -1,0 +1,8 @@
+.loading {
+  text-align: center;
+  height: 100vh;
+}
+
+.loading svg {
+  margin-top: 50vh;
+}

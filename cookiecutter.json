@@ -10,5 +10,6 @@
   "secret_key": "A random secret key",
   "encryption_key": "A random encryption key",
   "use_heroku": ["no", "yes"],
-  "use_async_task": ["no", "yes"]
+  "use_async_task": ["no", "yes"],
+  "use_react": ["no", "yes"]
 }

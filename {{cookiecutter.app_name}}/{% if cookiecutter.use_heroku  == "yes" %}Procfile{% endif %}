@@ -1,4 +1,4 @@
-release: make migrate
+release: make migrate {% if cookiecutter.use_react == "yes" %}&& npm  i && npm run build{% endif %}
 web: gunicorn -b :$PORT manage:app
 {% if cookiecutter.use_async_task == "yes" %}
 worker: dramatiq worker

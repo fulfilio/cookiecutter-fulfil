@@ -1,0 +1,44 @@
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+
+module.exports = {
+  entry: './{{cookiecutter.app_name}}/static/react/src/index.js',
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, './{{cookiecutter.app_name}}/static/react/dist/'),
+    publicPath: '/static/react/dist/'
+  },
+  module: {
+    rules: [{
+      test: /\.(js|jsx)$/,
+      exclude: /node_modules/,
+      loader: 'babel-loader',
+      options: {
+        presets: ['react', 'es2015']
+      }
+    }, {
+      test: /\.css$/,
+      use: [
+        { loader: 'style-loader' },
+        {
+          loader: 'css-loader',
+          options: {
+            modules: true
+          }
+        }
+      ]
+    }, {
+        test: /\.(png|jpg|jpeg|gif|svg)$/,
+        loader: 'file-loader?limit=8192&name=assets/[name].[ext]?[hash]'
+    }]
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './{{cookiecutter.app_name}}/static/react/index.html'
+    }),
+    new CleanWebpackPlugin(['{{cookiecutter.app_name}}/static/react/dist/'])
+  ],
+  devtool: 'eval'
+};
+
