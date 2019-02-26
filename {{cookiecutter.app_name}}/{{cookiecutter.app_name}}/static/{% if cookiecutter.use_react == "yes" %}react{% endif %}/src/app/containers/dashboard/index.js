@@ -43,7 +43,6 @@ class FrameComponent extends React.PureComponent {
   }
 
   componentDidMount() {
-    debugger;
     Api.user().then((res) => {
       this.setState({
         userName: res.data.name,

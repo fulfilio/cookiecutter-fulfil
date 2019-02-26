@@ -15,7 +15,7 @@ class Merchant(SurrogatePK, Model):
     name = Column(db.String(80), nullable=False)
     company_fid = Column(db.Integer, nullable=False)
     subdomain = Column(db.String(80), nullable=False, unique=True)
-    timezone = Column(db.String(80), nullable=False, unique=True)
+    timezone = Column(db.String(80), nullable=False)
     token = Column(EncryptedType(db.String, encr_key), nullable=False)
 
     @cached_property
