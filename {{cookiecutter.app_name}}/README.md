@@ -23,6 +23,17 @@ Run the following commands to bootstrap your environment:
     pip install -r requirements.txt
 ```
 
+### **How to create an App on Auth Server?**
+
+1. Visit [Auth Service](https://auth.fulfil.io/user/)
+2. Click on "View Apps" which take you [client's page](https://auth.fulfil.io/user/clients). You can see your apps listed here.
+3. Click on "Create App", it will open up a form asking you about App name and App description. Just provide the name(e.g: <My-very-cool-first-app>)
+4. Hit "Save". You will now see 2 more sections appear.
+5. Under the "URLs" section, in Whitelisted redirection URL(s) textbox add "<http://<app-name>>.localtest.me:5000/authorized>"
+6. Hit "Save"
+7. That's it, you have successfully created an App
+8. Under the "App Credentials", you can find your  `API Client ID` and  `API Client Secret`. Save them as `FULFIL_APP_ID` and `FULFIL_APP_SECRET` in your "environment.sh" file respectively.
+
 ## Environment Variables:
 
   **Note**: Read the environment variables before setting them up. Some of them will require your inputs
