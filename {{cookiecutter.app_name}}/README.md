@@ -51,6 +51,27 @@ Run the following commands to bootstrap your environment:
   export ENCR_KEY=An encryption key for encrypted fields
   ```
 
+## Creating a local database
+
+```sh
+psql -h localhost postgres
+
+# Create a new role called <YOUR_USER_NAME> in postgres
+CREATE ROLE <YOUR_USER_NAME> LOGIN;
+
+# Then set a password for your user
+\password <YOUR_USER_NAME>
+
+# Create a database also called <YOUR_APP_NAME> with this user.
+CREATE DATABASE <YOUR_DATABASE_NAME> OWNER <YOUR_USER_NAME>;
+```
+
+Add your newly created database URI to `env.sh`
+
+```bash
+export DATABASE_URI=postgres://<YOUR_USER_NAME>:<YOUR_USER_PASSWORD>@localhost:5432/<YOUR_DATABASE_NAME>
+```
+
 ## Migrations
 
 Whenever a database migration needs to be made. Run the following commands:
@@ -62,6 +83,20 @@ Once you have installed your DBMS, run the following to create your app's
 database tables and perform the initial migration:
 
   - If you are using Mac, please install GNU-SED to make the above command successful. RUN `brew install gnu-sed --with-default-names` to install.
+
+## Running the application
+
+```shell
+flask run
+```
+
+
+If using react, run this in another shell:
+```shell
+npm run dev
+```
+
+Note: Remember to run `npm i` before running the node script if you have not already done so
 
 ## Shell
 
