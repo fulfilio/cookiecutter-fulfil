@@ -1,26 +1,22 @@
 {% raw %}
 {% macro render_field(field, label_visible=true) -%}
-     <div class="form-group {% if field.errors %}has-error{% endif %} {{ kwargs.pop('class_', '') }}">
-        {% if field.type not in ('HiddenField', 'BooleanField') and label_visible %}
-          {{ field.label(class_='control-label') }}
-        {% endif %}
-        {% if field.type == 'ChoiceField' %}
-          {{ field(class_='mdb-select', **kwargs) }}
-        {% else %}
-          {{ field(class_='form-control', **kwargs) }}
-        {% endif %}
-        {% if field.type == 'BooleanField' and label_visible %}
-          {{ field.label(class_='control-label') }}
-        {% endif %}
-        {% if field.description %}
-          <small class="text-muted">{{ field.description }}</small>
-        {% endif %}
-        {% if field.errors %}
-            {% for e in field.errors %}
-                <p class="help-block red-text">{{ e }}</p>
-            {% endfor %}
-        {% endif %}
-    </div>
+    {% if field.type not in ('HiddenField', 'BooleanField') and label_visible %}
+        {{ field.label() }}
+    {% endif %}
+
+    {% if field.type == 'BooleanField' and label_visible %}
+    <label>
+        {{ field(**kwargs) }} {{ field.label }}
+    </label>
+    {% else %}
+    {{ field(**kwargs) }}
+    {% endif %}
+
+    {% if field.errors %}
+        {% for e in field.errors %}
+            <em>{{ e }}</em>
+        {% endfor %}
+    {% endif %}
 {%- endmacro %}
 
 
