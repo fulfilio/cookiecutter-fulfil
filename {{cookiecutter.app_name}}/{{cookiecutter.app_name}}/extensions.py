@@ -3,6 +3,7 @@ import os
 
 import flask
 from flask_babel import Babel
+from flask_wtf.csrf import CSRFProtect
 from flask_debugtoolbar import DebugToolbarExtension
 from flask_redis import FlaskRedis
 from flask_sqlalchemy import SQLAlchemy
@@ -24,6 +25,7 @@ Session.setup(
 
 redis_store = FlaskRedis()
 babel = Babel()
+csrf_protect = CSRFProtect()
 toolbar = DebugToolbarExtension()
 sentry = Sentry()
 

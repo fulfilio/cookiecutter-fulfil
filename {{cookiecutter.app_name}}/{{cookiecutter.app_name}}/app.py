@@ -4,7 +4,7 @@ from flask_sslify import SSLify
 from werkzeug.contrib.fixers import ProxyFix
 
 from .extensions import (
-    babel, toolbar, sentry, oauth_user, db, migrate, redis_store,
+    babel, toolbar, sentry, oauth_user, db, migrate, redis_store, csrf_protect
 {% if cookiecutter.use_async_task == "yes" %}    setup_dramatiq{% endif %}
 )
 from .globals import register_globals
@@ -27,6 +27,7 @@ def create_app(config=Config):
     db.init_app(app)
     migrate.init_app(app, db)
     babel.init_app(app)
+    csrf_protect.init_app(app)
     toolbar.init_app(app)
     sentry.init_app(app)
     redis_store.init_app(app)
