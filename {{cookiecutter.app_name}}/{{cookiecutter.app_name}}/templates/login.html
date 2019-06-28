@@ -3,30 +3,33 @@
 {% from 'utils.html' import render_field %}
 
 {% block content %}
-<div class="d-flex justify-content-center section">
-  <div class="col-sm-6 col-md-4">
-
-    <div class="card">
+<section class="no-border row">
+  <article>
+    <div class="column four"></div>
+    <div class="card column four">
         <!--Card image-->
         <!--/.Card image-->
         <!--Card content-->
-        <div class="card-body">
+        <div class="card-block">
             <!--Title-->
             <h4 class="card-title text-center">Login</h4>
             <!--Text-->
-            <form enctype="multipart/form-data" class="section">
-              <div class="form-group">
-                <label for="merchant" class="control-label">
-                  Organization
-                </label>
-                <input type="text" id="merchant" name="merchant" placeholder="<organization>.fulfil.io" />
+            <form method="POST" enctype="multipart/form-data" class="section">
+              <div class="input-group">
+                {{ render_field(form.organization, label_visible=false) }}
+                <span class="append">.fulfil.io</span>
               </div>
-              <input type="submit" value="Go" class="btn btn-primary">
+              {{ form.hidden_tag() }}
+              <br/>
+              <button type="submit" class="primary">
+                Login
+              </button>
             </form>
         </div>
         <!--/.Card content-->
     </div>
-  </div>
-</div>
+    <div class="column four"></div>
+  </article>
+</section>
 {% endblock content %}
 {% endraw %}
