@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import Flask
 from flask_sslify import SSLify
-from werkzeug.contrib.fixers import ProxyFix
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 from .extensions import (
     babel, toolbar, sentry, oauth_user, db, migrate, redis_store, csrf_protect
