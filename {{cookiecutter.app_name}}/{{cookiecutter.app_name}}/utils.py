@@ -15,7 +15,7 @@ def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if session.get('fulfil') is None:
-            if request.is_xhr or request.is_json:
+            if request.is_json:
                 abort(401)
             return redirect(
                 url_for('user.login', next=request.url)
