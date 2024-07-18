@@ -5,7 +5,7 @@ from werkzeug.middleware.proxy_fix import ProxyFix
 
 from .extensions import (
     babel, toolbar, sentry, oauth_user, db, migrate, redis_store, csrf_protect
-{% if cookiecutter.use_async_task == "yes" %}    setup_dramatiq{% endif %}
+{% if cookiecutter.use_async_task == "yes" %}    ,setup_dramatiq{% endif %}
 )
 from .globals import register_globals
 from .settings import Config
